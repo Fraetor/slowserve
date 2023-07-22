@@ -107,8 +107,6 @@ def app(environ, start_response):
     else:
         response = HTTPResponse(405)
 
-    print(response)
-
     # Send the HTTP response.
     start_response(response.status, response.headers)
     return response.data
