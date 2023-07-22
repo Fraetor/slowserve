@@ -14,7 +14,8 @@ deployments.
 To run slowserve use the following command.
 
 ```sh
-gunicorn slowserve:app
+# We need lots of threads because each one serves very slowly.
+gunicorn --threads 50 slowserve:app
 ```
 
 Once running any GET requests to the server will be served the `index.html`
