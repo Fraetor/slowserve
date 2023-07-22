@@ -35,35 +35,25 @@ class HTTPResponse:
             507: "507 Insufficient Storage",
         }
         self.status = status_codes[status]
-
         if isinstance(data, Iterable):
             self.data = data
         else:
             self.data = [data]
-
-        if extra_headers is None:
-            extra_headers = []
-
-        print(f"{extra_headers=}")
-
-        if any(header[0].casefold() == "content-length" for header in extra_headers):
-            self.headers = extra_headers
+        if extra_headers:
+            if not any(
+                header[0].casefold() == "content-length" for header in extra_headers
+            ):
+                self.headers = extra_headers.append(("Content-Length", str(len(data))))
+            else:
+                self.headers = extra_headers
         else:
-            self.headers = [("Content-Length", str(len(data)))]
-
-        print(f"{self.headers=}")
-
-        if not isinstance(self.headers, Iterable):
-            raise TypeError(f"headers must be iterable: {self.headers}")
+            self.headers = []
 
     def __str__(self) -> str:
         return (
-            "┌─────── Response ───────┐\n"
-            + f"HTTP/1.1 {self.status}\n"
-            + "\n".join(f"{h[0]}: {h[1]}" for h in self.headers)
-            + "\n\n"
+            f"HTTP/1.1 {self.status}\n"
+            + "".join(f"{h[0]}: {h[1]}\n" for h in self.headers)
             + str(self.data)
-            + "\n└───── End Response ─────┘"
         )
 
 
@@ -82,7 +72,7 @@ def get_filepath(file_uri_path: str, webroot: str | Path) -> Path:
     """Returns Path object to requested file if it is inside the webroot and it
     exists. Also return index.html if a directory is requested."""
 
-    filepath = Path(webroot).joinpath(file_uri_path).resolve()
+    filepath = Path(webroot).joinpath(file_uri_path.lstrip("/")).resolve()
     if filepath.is_relative_to(Path(webroot).resolve()) and filepath.exists():
         if filepath.is_file():
             return filepath
