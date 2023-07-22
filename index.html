@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-GB">
+
+<head>
+    <title>Slowly served webpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <h1>Slow Webpage</h1>
+        <p>
+            This page is being served very slowly by <a href="https://github.com/Fraetor/slowserve">Slowserve</a>.
+        </p>
+
+        <p>
+            You can change the rate at which it is served by adding a query
+            string to the URL, e.g.: <code>http://example.com/?rate=300</code>.
+            This rate is in bytes per second. By default this page is served at
+            100 bytes per second, which is roughly equivalent to <a
+                href="https://en.wikipedia.org/wiki/List_of_interface_bit_rates#Modems_(narrowband_and_broadband)">common
+                modems in the mid 1970s</a>.
+        </p>
+
+        <h2>Example Text</h2>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed
+            velit sit amet mauris sodales consequat ut at justo. Aliquam
+            bibendum nisi vel elit dignissim ornare. Aenean venenatis
+            ullamcorper vestibulum. Integer vulputate, lectus nec sagittis
+            iaculis, dolor nisl dictum turpis, tristique mattis turpis orci in
+            sapien. Aenean non nisi a ex pharetra consequat. Sed quis nunc quis
+            leo tempor bibendum. Nulla in magna purus.
+        </p>
+
+        <h2>Adding Style</h2>
+
+        <p>Now let's add some style.</p>
+
+        <style type="text/css">
+            body {
+                background-color: #f0f0f2;
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+
+            }
+
+            div {
+                width: 600px;
+                margin: 5em auto;
+                padding: 2em;
+                background-color: #fdfdff;
+                border-radius: 0.5em;
+                box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.02);
+            }
+
+            a:link,
+            a:visited {
+                color: #38488f;
+                text-decoration: none;
+            }
+
+            @media (max-width: 700px) {
+                div {
+                    margin: 0 auto;
+                    width: auto;
+                }
+            }
+        </style>
+
+        <h2>Loading an Image</h2>
+
+        <p>
+            We can even load images. Slowly...
+        </p>
+
+        <img src="landscape.jpg" alt="A very low quality picture">
+
+        <p>Fortunately JPEG has a handy feature called progressive loading. This
+            is why you should be able to see a blurry preview well before the image
+            has fully loaded. This is a feature that JPEG XL has further developed
+            so that the important parts of the image can be loaded first.</p>
+
+        <h2>Acknowledgements</h2>
+
+        <p>
+            Thank you to <a
+            href="https://shkspr.mobi/blog/2020/10/introducing-slowww-ml-the-slow-web-server/">Terance
+            Edent's blog post</a> for inspiring me to do this. If you enjoyed it
+            you may want to check out <a
+            href="https://github.com/Fraetor/slowcat">slowcat</a>, a similar
+            idea but around the common Unix command line program cat.
+        </p>
+
+        <p>That is all for this page. I hope you had a good time.</p>
+    </div>
+</body>
+
+</html>
