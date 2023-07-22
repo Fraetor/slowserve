@@ -83,6 +83,14 @@ def get_filepath(file_uri_path: str, webroot: str | Path) -> Path:
     raise FileNotFoundError
 
 
+def get_content_type(path: str) -> str:
+    """Gets the content type based on the path. Defaults to text/html."""
+
+    content_types = {"jpg": "image/jpg"}
+    extension = path.split(".")[-1]
+    return content_types.get(extension, "text/html; charset=utf-8")
+
+
 def app(environ, start_response):
     """Entry point of WSGI app."""
 
@@ -95,9 +103,10 @@ def app(environ, start_response):
     if environ["REQUEST_METHOD"] == "GET":
         try:
             filepath = get_filepath(environ["PATH_INFO"], WEB_ROOT)
+
             headers = [
                 ("Content-Length", str(filepath.stat().st_size)),
-                ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Type", get_content_type(environ["PATH_INFO"])),
             ]
             response = HTTPResponse(
                 200, data=slowly_read_file(filepath, rate), extra_headers=headers
