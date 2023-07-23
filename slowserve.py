@@ -4,7 +4,6 @@ import time
 import re
 import sys
 from pathlib import Path
-from collections.abc import Iterable
 
 WEB_ROOT = "html/"
 
@@ -35,10 +34,10 @@ class HTTPResponse:
             507: "507 Insufficient Storage",
         }
         self.status = status_codes[status]
-        if isinstance(data, Iterable):
-            self.data = data
-        else:
+        if isinstance(data, bytes):
             self.data = [data]
+        else:
+            self.data = data
         if extra_headers:
             if not any(
                 header[0].casefold() == "content-length" for header in extra_headers
